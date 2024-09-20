@@ -6,12 +6,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoClientFactoryBean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 
 import com.mongodb.ConnectionString;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class AppConfig {
     
     @Bean
@@ -22,37 +26,33 @@ public class AppConfig {
         return mongo;
     }
 
-       @Bean
+    @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    // @Bean
-    // public SecurityFilterChain securityFilterChain(HttpSecurity security)throws Exception{
-    //     security.
-    //         csrf(c -> c.disable()).
-    //         authorizeHttpRequests(aut -> 
-    //         aut.requestMatchers("/login", "/signUp").permitAll()
-    //         .anyRequest().authenticated()
-    //     ).formLogin(cus -> 
-    //             cus.loginPage("/login")
-    //             .successForwardUrl("/")
-    //             .permitAll()
-    //     );
-    //     return security.build();
-    // }
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity security)throws Exception{
+        security.
+            authorizeHttpRequests(aut -> 
+                aut
+                    .requestMatchers("/**.css").permitAll()
+                    .anyRequest().authenticated()
+        ).formLogin(cus -> 
+                cus
+                    .loginPage("/auth/login")
+                    .successForwardUrl("/auth/success")
+                    .permitAll()
+        ).logout(logout -> 
+                logout
+                    .logoutUrl("/auth/logout")
+                    .logoutSuccessUrl("/auth/login")
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID")
+                    .permitAll()
+        );
+        return security.build();
+    }
 
-    // public AuthenticationManager authenticationManager(
-	// 		UserDetailsService userDetailsService,
-	// 		PasswordEncoder passwordEncoder) {
-	// 	DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-	// 	authenticationProvider.setUserDetailsService(userDetailsService);
-	// 	authenticationProvider.setPasswordEncoder(passwordEncoder);
-
-	// 	ProviderManager providerManager = new ProviderManager(authenticationProvider);
-	// 	providerManager.setEraseCredentialsAfterAuthentication(false);
-
-	// 	return providerManager;
-	// }
 
 }

@@ -9,13 +9,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.User;
-import com.example.demo.model.mongo.Logs;
-import com.example.demo.repositories.LogsRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.interfaces.RoleService;
 import com.example.demo.services.interfaces.UserService;
-
-import jakarta.annotation.PostConstruct;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -26,27 +22,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private RoleService roleService;
 
-    private LogsRepository logsRepository;
-	@Autowired
-	public void setLogsRepository(LogsRepository logsRepository) {
-		this.logsRepository = logsRepository;
-	}
-
-    @PostConstruct
-    public void init() {
-        User user = new User();
-        user.setUsername("admin");
-        user.setPassword("admin");
-        user.setEmail("admin@mail.com");
-        user.setName("Usuario");
-        user.setLastName("Inicial");
-        userRepository.save(user);
-        Logs logs = new Logs();
-        logs.setUsername("admin");
-        logs.setAction("Creación de usuario");
-        logs.setDate("2021-09-01");
-        logsRepository.save(logs);
-    }
 
     @Override
     public void saveUser(User user) {

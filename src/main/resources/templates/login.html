@@ -13,17 +13,17 @@
 </head>
 <body>
     <div id = "app">
-        <div id="thyme">
+        <div id="thyme" >
             <h1>Login Personalizado</h1>
             <div>
                 <div th:if = "${loginError}">
                     <p >Invalid username or password</p>
                 </div>
-                <form th:unless = "${loginError}" th:action = "@{/login}" th:object = "${user}" method="POST">
+                <form th:unless = "${loginError}" th:action = "@{/auth/login}" method="POST">
                     <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" th:field = "*{username}">
+                    <input type="text" id="username" name="username">
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" th:field = "*{password}">
+                    <input type="password" id="password" name="password">
                     <button type="submit">Login</button>
                 </form>
             </div>
