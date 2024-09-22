@@ -3,22 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/edit-user.css" />
     <title>Edit User</title>
 </head>
-<body>
-        <h1>Edit User</h1>
+<body class="main-body">
+    <div class="main">
+        <div class="login-box">
+            <h1 class="title">Edit User</h1>
 
-        <form th:action="@{/users/edit}" method="post" th:object = "${user}">
-            <input type="hidden" name="id" th:value="*{id}">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" th:value="*{name}">
-            <label for="lastName">Lastname:</label>
-            <input type="text" id="lastName" name="lastName" th:value="*{lastName}">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" th:value="*{username}">
-            <label for="email">Email:</label>
-            <input type="text" id="email" name="email" th:value="*{email}">
-            <button type="submit">Save</button>
-        </form>
+            <form th:action="@{/users/edit}" method="post" th:object = "${user}" class="form">
+                <input type="hidden" name="id" th:value="*{id}" class="textfield">
+                <label for="name" class="text">Name:</label>
+                <input type="text" id="name" name="name" th:value="*{name}" class="textfield">
+                <label for="lastName" class="text">Lastname:</label>
+                <input type="text" id="lastName" name="lastName" th:value="*{lastName}" class="textfield">
+                <label for="username" class="text">Username:</label>
+                <input type="text" id="username" name="username" th:value="*{username}" class="textfield">
+                <label for="email" class="text">Email:</label>
+                <input type="text" id="email" name="email" th:value="*{email}" class="textfield">
+                <button type="submit" class="submit">Save</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
