@@ -3,22 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/create-user.css" />
     <title>Create User</title>
 </head>
-<body>
-    <h1>Create User</h1>
-    <form th:action = "@{/users/create}" th:object = "${user}" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" th:field="*{name}">
-        <label for="lastName">Lastname:</label>
-        <input type="text" id="lastName" name="lastName" th:field="*{lastName}">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" th:field="*{username}">
-        <label for="email">Email:</label>
-        <input type="text" id="email" name="email" th:field="*{email}">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" th:field="*{password}">
-        <button type="submit">Save</button>
-    </form>
+<body class="main-body">
+    <div class="main">
+        <div class="login-box">
+            <h1 class="title">Create User</h1>
+            <form th:action = "@{/users/create}" th:object = "${user}" method="POST" class="form">
+                <label for="name" class="text">Name:</label>
+                <input type="text" id="name" name="name" th:field="*{name}" class="textfield">
+                <label for="lastName" class="text">Lastname:</label>
+                <input type="text" id="lastName" name="lastName" th:field="*{lastName}" class="textfield">
+                <label for="username" class="text">Username:</label>
+                <input type="text" id="username" name="username" th:field="*{username}" class="textfield">
+                <label for="email" class="text">Email:</label>
+                <input type="text" id="email" name="email" th:field="*{email}" class="textfield">
+                <label for="password" class="text">Password:</label>
+                <input type="password" id="password" name="password" th:field="*{password}" class="textfield">
+                <button type="submit" class="submit">Save</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

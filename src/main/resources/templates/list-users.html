@@ -3,37 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/list-users.css" />
     <title>Document</title>
 </head>
-<body>
-    <h1>Users</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Lastname</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Actions</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.id}"></td>
-                <td th:text="${user.name}"></td>
-                <td th:text="${user.lastName}"></td>
-                <td th:text="${user.username}"></td>
-                <td th:text="${user.email}"></td>
-                <td>
-                    <a th:href="@{'/users/edit/' + ${user.id}}">Edit</a>
-                    <a th:href="@{'/users/delete/' + ${user.id}}">Delete</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <a href="/users/create-user">New User</a>
-    
+<body class="main-body">
+    <div class="main">
+        <div class="table-box">
+            <h1 class="title">Users</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text">Id</th>
+                        <th class="text">Name</th>
+                        <th class="text">Lastname</th>
+                        <th class="text">Username</th>
+                        <th class="text">Email</th>
+                        <th class="text">Actions</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.id}" class="text"></td>
+                        <td th:text="${user.name}" class="text"></td>
+                        <td th:text="${user.lastName}" class="text"></td>
+                        <td th:text="${user.username}" class="text"></td>
+                        <td th:text="${user.email}" class="text"></td>
+                        <td>
+                            <a th:href="@{'/users/edit/' + ${user.id}}" class="actions">Edit</a>
+                            <a th:href="@{'/users/delete/' + ${user.id}}" class="actions">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="/users/create-user" class="submit">New User</a>
+        </div>
+    </div>
 </body>
 </html>
