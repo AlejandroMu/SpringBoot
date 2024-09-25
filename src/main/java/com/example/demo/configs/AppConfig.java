@@ -1,5 +1,6 @@
 package com.example.demo.configs;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,9 @@ import com.mongodb.ConnectionString;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class AppConfig {
+
+    @Autowired
+    private DeniedHandler deniedHandler;
     
     @Bean
     public MongoClientFactoryBean mongo(@Value("${spring.data.mongodb.uri}") String uri) {
@@ -50,6 +54,9 @@ public class AppConfig {
                     .invalidateHttpSession(true)
                     .deleteCookies("JSESSIONID")
                     .permitAll()
+        ).exceptionHandling(ex -> 
+                    ex
+                        .accessDeniedHandler(deniedHandler)
         );
         return security.build();
     }

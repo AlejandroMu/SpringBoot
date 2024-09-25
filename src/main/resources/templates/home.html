@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome to the Home Page</h1>
+
+    <ul>
+        <li >
+            <a href="/users">Admin Page</a>
+        </li>
+        <li sec:authorize="hasRole('ROLE_ADMIN')" >
+            <a href="/roles">User Page</a>
+        </li>
+        <li sec:authorize="hasRole('ROLE_ADMIN')"> 
+            <a  href="/login">Login Page</a>
+        </li>
+    </ul>
+
+    <h2>Mis Authorities</h2>
+
+    <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+</body>
+</html>

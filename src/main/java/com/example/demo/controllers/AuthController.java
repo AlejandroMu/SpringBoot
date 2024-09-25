@@ -1,7 +1,6 @@
 package com.example.demo.controllers;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,20 +10,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.model.User;
 
 @Controller
-@RequestMapping("/auth")
+@RequestMapping("/")
 public class AuthController {
     
-    @GetMapping("/login")
+    @GetMapping("/auth/login")
     public String loginUSer(User user, Model model) {
         return "login";
     }
 
-    @PostMapping("/success")
-    public String afterLogin(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-        System.out.println(principal);
-        System.out.println("POST METHOD CALLED");
-        return "redirect:/users";
+    @PostMapping("/auth/success")
+    public String afterLogin(Authentication auth,Model model ) {
+                
+        return "redirect:/home";
+    }
+
+    @GetMapping("home")
+    public String logoutUser(Model model) {
+        return "home";
+    }
+
+    @GetMapping("/auth/error-403")
+    public String error403(Model model) {
+        model.addAttribute("errorMessage", "No tienes permisos para acceder a esta página.");
+        return "error-403";
     }
 }

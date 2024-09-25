@@ -13,10 +13,10 @@ INSERT INTO role ( id, name, description) VALUES (2, 'USER', 'User role');
 INSERT INTO permission (id, name, resource, role_id) VALUES (8, 'USER-INFO', 'USER', 2);
 INSERT INTO permission (id, name, resource, role_id) VALUES (9, 'UPDATE-USER', 'USER', 2);
 
-INSERT INTO "user" (id, username, password, email, name, last_name) VALUES (1, 'admin', '$2a$10$3', 'admin@mail.com', 'Admin', 'Admin');
+INSERT INTO "user" (id, username, password, email, name, last_name) VALUES (1, 'admin', 'password', 'admin@mail.com', 'Admin', 'Admin');
 
 INSERT INTO user_role (user_id, role_id) VALUES (1, 1);
 
-INSERT INTO "user" (id, username, password, email, name, last_name) VALUES (2, 'user', '$2a$10$3', 'user@mail.com', 'user', 'user');
+INSERT INTO "user" (id, username, password, email, name, last_name) VALUES (2, 'user', 'password', 'user@mail.com', 'user', 'user');
 
 INSERT INTO user_role (user_id, role_id) VALUES (2, 2);
