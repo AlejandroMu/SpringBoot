@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class="options">
+        <button id="connect">Connect</button>
+        <button id="disconnect" >Disconnect</button>    
+    </div>
+    <div>
+        
+        <input type="text" id="message" placeholder="Enter message">
+        <div id="messages"></div>
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+
+    <script >
+
+        const stompConfig = {      
+            // Broker URL, should start with ws:// or wss:// - adjust for your broker setup
+            brokerURL: "ws://localhost:8081/api/ws",
+      
+            // Keep it off for production, it can be quit verbose
+            // Skip this key to disable
+            debug: function (str) {
+              console.log('STOMP: ' + str);
+            },
+            onConnect: function (frame) {
+                // The return object has a method called `unsubscribe`
+                const subscription = stompClient.subscribe('/api/ws/topic/hello', function (message) {
+                  const payload = JSON.parse(message.body);
+                  console.log(payload.user, payload.usrMsg);
+                });
+            }
+        };
+        let stompClient = new StompJs.Client(stompConfig);
+
+        stompClient.activate();
+        let client = null;
+
+        const connectButton = document.getElementById('connect');
+        connectButton.addEventListener('click', connect);
+        const disconnectButton = document.getElementById('disconnect');
+        disconnectButton.addEventListener('click', disconnect);
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "front",
+  "version": "1.0.0",
+  "main": "websocketTest.js",
+  "type": "module",
+  "scripts": {
+    "start": "node websocketTest.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3",
+    "webstomp-client": "^1.2.6"
+
+
+  }
+}
