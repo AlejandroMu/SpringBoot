@@ -12,14 +12,19 @@ public class WebSocketConfi implements WebSocketMessageBrokerConfigurer {
     
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/api/ws/topic");
-        config.setApplicationDestinationPrefixes("/api/ws/app");
-
+        config.enableSimpleBroker("/api/messageTo");
+        config.setApplicationDestinationPrefixes("/app");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/api/ws");
+        registry.addEndpoint("/api/ws-connect")
+            .setAllowedOriginPatterns("*");
+
+        registry.addEndpoint("/api/ws-connect-sj")
+            .setAllowedOriginPatterns("*")
+            .withSockJS();
+
     }
 
 }

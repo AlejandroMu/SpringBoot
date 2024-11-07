@@ -6,8 +6,7 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <!-- <link rel="stylesheet" th:href="@{/login.css}" /> -->
-    <link rel="stylesheet" href="../static/login.css" />
+    <link rel="stylesheet" th:href="@{/login.css}" />
 
     <title>Document</title>
 </head>
@@ -32,12 +31,5 @@
         </div>
 
     </div>
-    <script type="text/babel">
-        const element = <h1 th:text = "${name}" class="container">Hello, world  from react</h1>;
-        ReactDOM.render(
-            element,
-            document.getElementById('react')
-        );
-    </script>
 </body>
 </html>

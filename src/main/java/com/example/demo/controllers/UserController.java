@@ -60,10 +60,8 @@ public class UserController {
     public String getMethodName(@PathVariable Integer id) {
         userService.deleteUser(id);
         return "redirect:/";
-    }
+    }  
     
-    
-
 
 }
 

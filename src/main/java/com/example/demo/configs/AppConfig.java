@@ -40,6 +40,12 @@ public class AppConfig {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private DeniedRest deniedRest;
+
+    @Autowired
+    private AuthEntryPoint authEntryPoint;
     
     @Bean
     public MongoClientFactoryBean mongo(@Value("${spring.data.mongodb.uri}") String uri) {
@@ -62,22 +68,6 @@ public class AppConfig {
         return authenticationProvider;
     }
 
-    // @Bean
-    // public SecurityFilterChain permit(HttpSecurity http) throws Exception {
-    //     http
-    //         .csrf(c -> c.disable())
-    //         .cors( cors -> cors.disable())
-    //         .authorizeHttpRequests(aut -> 
-    //             aut.anyRequest().permitAll()
-    //         )
-    //         .sessionManagement(session -> 
-    //             session
-    //                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-    //         );
-            
-    //     return http.build();
-    // }
-
     @Bean
     public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -85,12 +75,16 @@ public class AppConfig {
             .csrf(c -> c.disable())
             .cors( cors -> cors.disable())
             .authorizeHttpRequests(aut -> 
-                aut.requestMatchers("/api/login","/api/ws/* *", "/api/ws").permitAll()
+                aut.requestMatchers("/api/login", "/api/ws-connect").permitAll()
                     .anyRequest().authenticated()
             )
             .sessionManagement(session -> 
                 session
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            ).exceptionHandling(ex -> 
+                ex
+                    .authenticationEntryPoint(authEntryPoint)
+                    .accessDeniedHandler(deniedRest)
             )
             .addFilterBefore(secureFilter, UsernamePasswordAuthenticationFilter.class);
             
@@ -101,7 +95,6 @@ public class AppConfig {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		// * URL below needs to match the Vue client URL and port *s
 		config.setAllowedOriginPatterns(Collections.singletonList("*"));
 		config.setAllowedMethods(Collections.singletonList("*"));
 		config.setAllowedHeaders(Collections.singletonList("*"));

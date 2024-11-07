@@ -18,6 +18,10 @@
         <li sec:authorize="hasRole('ROLE_ADMIN')"> 
             <a  href="/login">Login Page</a>
         </li>
+        <a href="/redirect/chat" class="submit">Ir a chat</a>
+        <form th:action="@{/auth/logout}" method="POST">
+            <button type="submit" class="submit">Cerrar sesión</button>
+        </form>
     </ul>
 
     <h2>Mis Authorities</h2>
